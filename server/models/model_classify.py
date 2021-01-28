@@ -8,7 +8,7 @@ from flask import Flask, session, render_template, request, jsonify
 from flask_session import Session
 from werkzeug.utils import secure_filename
 #================================================================================="THIS IS THE PART WHERE MODEL IS LOADED AND RESULTS ARE CALCULATED"========================
-model1 = load_model('soil_model.h5')
+model1 = load_model('modelsoil.h5')
 classes = {0:"alluvial", 1:"black", 2:"clay", 3:"red"}
 def predict_soil(img_path):                                                        #this function predicts the soil soil_type
     image = load_img(img_path,target_size=(244,244))
