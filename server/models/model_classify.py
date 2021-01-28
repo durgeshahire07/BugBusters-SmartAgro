@@ -35,8 +35,9 @@ def crop_suggest_estimate(soil):
         suggestion = ["lettuce","chard","brocolli","brussel sprouts","sweet corn","cabbage","pumpkin","rice","snap beans"]
     return suggestion
 
-def __main__(img_path):
-    soil = predict_soil(img_path)
-    suggest = crop_suggest_estimate(soil)
-    result = str(suggest)
-    return result
+base=""
+file=str(sys.argv[1]))
+img_path=base+file
+sll=predict_soil(img_path)
+result = { 'soil':str(sll) , 'crops':str(crop_suggest_estimate(sll)) }
+print(str(result)) #this will return the result in form of string to the JS program 
