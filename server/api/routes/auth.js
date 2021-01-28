@@ -6,6 +6,7 @@ const userFunction = require("../controllers/loginSignup")
 const planner = require("../controllers/createPlanner")
 
 const multer = require("multer");
+const { saveCropDetails } = require("../controllers/createPlanner");
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, './uploads/');
@@ -25,5 +26,6 @@ router.patch('/password', updateFunctions.newPassword)
 // router.post('/resetPasswordEmail', userFunction.resetPasswordEmail)
 // router.post('/passwordUpdateConfirmation', userFunction.passwordUpdateConfirmation)
 router.post("/getCrops", uplaod.single('landImage'), planner.getCrops)
+router.post("/saveCropDetails", planner.saveCropDetails)
 
 module.exports = router
