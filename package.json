@@ -1,0 +1,19 @@
+{
+  "name": "smartagro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/durgeshahire07/SmartAgro.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/durgeshahire07/SmartAgro/issues"
+  },
+  "homepage": "https://github.com/durgeshahire07/SmartAgro#readme"
+}
