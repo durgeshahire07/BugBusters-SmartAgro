@@ -35,7 +35,7 @@ def crop_suggest_estimate(soil):
         suggestion = ["lettuce","chard","brocolli","brussel sprouts","sweet corn","cabbage","pumpkin","rice","snap beans"]
     return suggestion
 
-base=""
+base="uploads/"
 file=str(sys.argv[1]))
 img_path=base+file
 sll=predict_soil(img_path)
