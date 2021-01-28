@@ -8,11 +8,11 @@ module.exports = {
         //console.log(req.file)
         try {
             console.log(req.file.filename);
-            const subProcess = spawn("python", ["model_classify.py", req.file.filename]);
+            const subProcess = spawn("python", ["../../models/model_classify.py", req.file.filename]);
             subProcess.stdout.on('data', (data) => {
                 console.log("in subprocess")
                 console.log(data);
-            })
+            });
             res.status(200).json({
                 sucess: true,
                 data: req.file
