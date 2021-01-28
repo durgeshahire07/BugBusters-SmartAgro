@@ -39,8 +39,7 @@ def crop_suggest_estimate(soil):
     return suggestion
 
 def __main__(img_path):
-    # soil = predict_soil(img_path) --> remove the comment part on this line when H5 model is added
-    soil = "clay"
+    soil = predict_soil(img_path)
     suggest = crop_suggest_estimate(soil)
     result = str(suggest)
     return result
