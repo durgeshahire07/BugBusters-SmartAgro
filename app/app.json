@@ -1,9 +1,9 @@
 {
-  "name": "smartA",
-  "displayName": "smartA",
+  "name": "pgp",
+  "displayName": "pgp",
   "expo": {
-    "name": "smartA",
-    "slug": "smartA",
+    "name": "pgp",
+    "slug": "pgp",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"

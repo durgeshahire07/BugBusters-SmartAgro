@@ -1,14 +1,28 @@
-import React from 'react'
-import {
-    View,
-    StyleSheet,
-    Text
-} from 'react-native'
-import Login from './src/Login'
-const App = () => {
+import React, {useState} from 'react';
+import * as Font from 'expo-font'
+import { AppLoading } from 'expo';
+import RootStackScreen from './src/RootStackScreen'
+
+const getFonts = () => Font.loadAsync({
+    'nunito-regular' : require('./assets/fonts/Nunito-Regular.ttf'),
+    'nunito-bold' : require('./assets/fonts/Nunito-Bold.ttf'),
+    'nunito-semi' : require('./assets/fonts/Nunito-SemiBold.ttf'),
+})
+  
+const YourApp = () => {
+  const [fontsLoaded, setFontsLoaded] = useState(false)
+  if(fontsLoaded){
     return(
-        <Login />
+        <RootStackScreen />
     )
+  } else {
+    return(
+      <AppLoading
+       startAsync={getFonts}
+       onFinish={()=> setFontsLoaded(true)}
+       />
+    )
+  }
 }
 
-export default App;
+export default YourApp;

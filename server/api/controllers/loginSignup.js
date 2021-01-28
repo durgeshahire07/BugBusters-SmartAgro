@@ -20,7 +20,7 @@ module.exports = {
                 });
             } else {
                 console.log("user not found", doc)
-                res.status(500).json({
+                res.status(200).json({
                     success: false,
                     data: doc
                 });
