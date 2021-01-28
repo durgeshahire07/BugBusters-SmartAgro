@@ -42,7 +42,8 @@ module.exports = {
                 userEmailId: req.body.userEmailId,
                 password: req.body.password,
                 firstName: req.body.firstName,
-                lastName: req.body.lastName
+                lastName: req.body.lastName,
+                location: req.body.location,
             });
             user.save().then(result => {
                     console.log(result);
