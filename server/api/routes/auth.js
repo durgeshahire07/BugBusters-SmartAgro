@@ -4,6 +4,7 @@ const router = express.Router();
 const updateFunctions = require("../controllers/updatePass")
 const userFunction = require("../controllers/loginSignup")
 const planner = require("../controllers/createPlanner")
+const weather = require("../controllers/weather")
 
 const multer = require("multer");
 const { saveCropDetails } = require("../controllers/createPlanner");
@@ -28,5 +29,7 @@ router.patch('/password', updateFunctions.newPassword)
 router.post("/getCrops", uplaod.single('landImage'), planner.getCrops)
 router.post("/saveCropDetails", planner.saveCropDetails)
 router.post("/cropDetails", planner.cropDetails)
+router.post("/saveCropPlanDetails", planner.saveCropPlanDetails)
+router.post("/weather", weather.weather)
 
 module.exports = router

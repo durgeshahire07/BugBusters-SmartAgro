@@ -1,4 +1,5 @@
 const Crop = require("../models/cropDetails")
+const Planner = require("../models/plannerSchema")
 
 module.exports = {
     saveCrop: async (data) => {
@@ -7,6 +8,13 @@ module.exports = {
             seeds: data.seeds,
             fertilizers: data.fertilizers,
             pesticides: data.pesticides,
+        })
+        return result
+    },
+    savePlan: async (data) => {
+        const result = await Planner.create({
+            crop: data.crop,
+            plan: data.plan
         })
         return result
     },

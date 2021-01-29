@@ -1,10 +1,10 @@
-// const multer = require("multer");
 const fs = require('fs');
 
 const {
     saveCrop,
     getCrops,
     getcropDetails,
+    savePlan,
 } = require("../utils/plannerHelper")
 
 module.exports = {
@@ -51,21 +51,7 @@ module.exports = {
                     }
                 });
             });
-            // const op = getCrops(req.file.filename);
             console.log(op);
-            // res.status(200).json({
-            //     sucess: true,
-            //     output: op,
-            //     data: req.file
-            // });
-            // while (op != '') {
-            //     console.log(op);
-            //     res.status(200).json({
-            //         sucess: true,
-            //         output: op,
-            //         data: req.file
-            //     });
-            // }
         } catch (error) {
             console.log(error)
             res.status(404).json({
@@ -92,6 +78,25 @@ module.exports = {
             res.status(404).json({
                 success: false,
                 data: null,
+            })
+        }
+    },
+    saveCropPlanDetails: async (req, res, next) => {
+        try {
+            const result = await savePlan(req.body)
+            if (result) {
+                res.status(200).json({
+                    sucess: true
+                })
+            } else {
+                res.status(500).json({
+                    sucess: false
+                })
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(404).json({
+                sucess: false
             })
         }
     },
