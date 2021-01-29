@@ -5,7 +5,7 @@ import numpy as np
 import os, sys, glob, re
 import json
 #================================================================================="THIS IS THE PART WHERE MODEL IS LOADED AND RESULTS ARE CALCULATED"========================
-model1 = load_model('modelsoil.h5')
+model1 = load_model('./models/modelsoil.h5')
 classes = {0:"alluvial", 1:"black", 2:"clay", 3:"red"}
 def predict_soil(img_path):                                                        #this function predicts the soil soil_type
     image = load_img(img_path,target_size=(244,244))
@@ -35,9 +35,11 @@ def crop_suggest_estimate(soil):
         suggestion = ["lettuce","chard","brocolli","brussel sprouts","sweet corn","cabbage","pumpkin","rice","snap beans"]
     return suggestion
 
-base="../uploads/"
-file=str(sys.argv[1])
-img_path=base+file
+# base="../uploads/"
+# file=str(sys.argv[1])
+# img_path=base+file
+img_path = "./uploads/" + sys.argv[1]
 sll=predict_soil(img_path)
-result = { 'soil':str(sll) , 'crops':str(crop_suggest_estimate(sll)) }
-print(str(result)) #this will return the result in form of string to the JS program 
+# result = { 'soil':str(sll) , 'crops':str(crop_suggest_estimate(sll)) }
+result = crop_suggest_estimate(sll)
+print(result) #this will return the result in form of string to the JS program 
