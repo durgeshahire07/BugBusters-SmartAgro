@@ -1,5 +1,6 @@
 const Crop = require("../models/cropDetails")
 const Planner = require("../models/plannerSchema")
+const userPlan = require("../models/plan")
 
 module.exports = {
     saveCrop: async (data) => {
@@ -34,4 +35,26 @@ module.exports = {
             return data.toString();
         })
     },
+    savep: async (data) => {
+        const result = await userPlan.create({
+            userID: data.userID,
+            crop: data.crop
+        });
+        return result;
+    },
+    getl: async (data) => {
+        const result = await userPlan.find(data);
+        return result;
+    },
+    getp: async (data) => {
+        const result = {
+            cropinfo: await Crop.findOne({
+                crop: data.crop
+            }),
+            cropPlan: await Planner.findOne({
+                crop: data.crop
+            })
+        }
+        return result
+    }
 }

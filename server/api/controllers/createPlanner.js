@@ -5,6 +5,9 @@ const {
     getCrops,
     getcropDetails,
     savePlan,
+    savep,
+    getl,
+    getp,
 } = require("../utils/plannerHelper")
 
 module.exports = {
@@ -32,13 +35,13 @@ module.exports = {
                 console.log(`child process exited with code ${code}`);
                 if (op != null) {
                     res.status(200).json({
-                        sucess: true,
+                        success: true,
                         list: op,
                         data: req.file
                     });
                 } else {
                     res.status(200).json({
-                        sucess: false,
+                        success: false,
                         list: op,
                         data: req.file
                     });
@@ -55,7 +58,7 @@ module.exports = {
         } catch (error) {
             console.log(error)
             res.status(404).json({
-                sucess: false
+                success: false
             })
         }
     },
@@ -65,6 +68,7 @@ module.exports = {
             if (result) {
                 res.status(200).json({
                     success: true,
+                    crop: req.body.crop,
                     data: result,
                 })
             } else {
@@ -86,17 +90,17 @@ module.exports = {
             const result = await savePlan(req.body)
             if (result) {
                 res.status(200).json({
-                    sucess: true
+                    success: true
                 })
             } else {
                 res.status(500).json({
-                    sucess: false
+                    success: false
                 })
             }
         } catch (error) {
             console.log(error);
             res.status(404).json({
-                sucess: false
+                success: false
             })
         }
     },
@@ -105,18 +109,78 @@ module.exports = {
             const result = await saveCrop(req.body)
             if (result) {
                 res.status(200).json({
-                    sucess: true
+                    success: true
                 })
             } else {
                 res.status(500).json({
-                    sucess: false
+                    success: false
                 })
             }
         } catch (error) {
             console.log(error);
             res.status(404).json({
-                sucess: false
+                success: false
             })
         }
     },
+    savePlan: async (req, res, next) => {
+        try {
+            const result = await savep(req.body);
+            if (result) {
+                res.status(200).json({
+                    success: true
+                })
+            } else {
+                res.status(200).json({
+                    success: false
+                })
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(404).json({
+                success: false
+            })
+        }
+    },
+    getList: async (req, res, next) => {
+        try {
+            const result = await getl(req.body);
+            if (result) {
+                res.status(200).json({
+                    success: true,
+                    list: result
+                })
+            } else {
+                res.status(200).json({
+                    success: false
+                })
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(404).json({
+                success: false
+            })
+        }
+    },
+    getPlan: async (req, res, next) => {
+        try {
+            const result = await getp(req.body);
+            if (result) {
+                res.status(200).json({
+                    success: true,
+                    cropinfo: result.cropinfo,
+                    plan: result.cropPlan,
+                })
+            } else {
+                res.status(200).json({
+                    success: false
+                })
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(404).json({
+                success: false
+            })
+        }
+    }
 }
