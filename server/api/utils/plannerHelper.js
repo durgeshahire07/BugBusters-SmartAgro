@@ -10,6 +10,10 @@ module.exports = {
         })
         return result
     },
+    getcropDetails: async (data) => {
+        const result = await Crop.findOne(data);
+        return result
+    },
     getCrops: (imgName) => {
         const spawn = require("child_process").spawn;
         const subProcess = spawn("python", ["model_classify.py", imgName.toString()]);

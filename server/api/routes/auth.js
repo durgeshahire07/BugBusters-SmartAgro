@@ -27,5 +27,6 @@ router.patch('/password', updateFunctions.newPassword)
 // router.post('/passwordUpdateConfirmation', userFunction.passwordUpdateConfirmation)
 router.post("/getCrops", uplaod.single('landImage'), planner.getCrops)
 router.post("/saveCropDetails", planner.saveCropDetails)
+router.post("/cropDetails", planner.cropDetails)
 
 module.exports = router

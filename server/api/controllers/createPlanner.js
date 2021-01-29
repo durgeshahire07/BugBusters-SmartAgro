@@ -3,7 +3,8 @@ const fs = require('fs');
 
 const {
     saveCrop,
-    getCrops
+    getCrops,
+    getcropDetails,
 } = require("../utils/plannerHelper")
 
 module.exports = {
@@ -22,7 +23,7 @@ module.exports = {
                 op = data.toString();
 
             });
-            
+
             subProcess.stderr.on('data', (data) => {
                 console.error(`stderr: ${data}`);
 
@@ -43,10 +44,9 @@ module.exports = {
                     });
                 }
                 fs.unlink(filePath, (err) => {
-                    if(err){
+                    if (err) {
                         console.log("error deleting image file!");
-                    }
-                    else{
+                    } else {
                         console.log("deleted image file!");
                     }
                 });
@@ -70,6 +70,28 @@ module.exports = {
             console.log(error)
             res.status(404).json({
                 sucess: false
+            })
+        }
+    },
+    cropDetails: async (req, res, next) => {
+        try {
+            const result = await getcropDetails(req.body);
+            if (result) {
+                res.status(200).json({
+                    success: true,
+                    data: result,
+                })
+            } else {
+                res.status(200).json({
+                    success: false,
+                    data: result,
+                })
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(404).json({
+                success: false,
+                data: null,
             })
         }
     },
