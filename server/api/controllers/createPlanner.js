@@ -1,4 +1,5 @@
 // const multer = require("multer");
+const fs = require('fs');
 
 const {
     saveCrop,
@@ -10,6 +11,7 @@ module.exports = {
         console.log(req.file)
         try {
             var op = '';
+            const filePath = "./uploads/" + req.file.filename;
             console.log(req.file.filename);
             const spawn = require("child_process").spawn;
             const subProcess = spawn("python", ["./models/model_classify.py", req.file.filename.toString()]);
@@ -18,17 +20,36 @@ module.exports = {
                 console.log("in subprocess")
                 console.log(`stdout: ${data}`);
                 op = data.toString();
-                res.status(200).json({
-                    sucess: true,
-                    output: op,
-                    data: req.file
-                });
+
             });
+            
             subProcess.stderr.on('data', (data) => {
                 console.error(`stderr: ${data}`);
+
             });
             subProcess.on('close', (code) => {
                 console.log(`child process exited with code ${code}`);
+                if (op != null) {
+                    res.status(200).json({
+                        sucess: true,
+                        list: op,
+                        data: req.file
+                    });
+                } else {
+                    res.status(200).json({
+                        sucess: false,
+                        list: op,
+                        data: req.file
+                    });
+                }
+                fs.unlink(filePath, (err) => {
+                    if(err){
+                        console.log("error deleting image file!");
+                    }
+                    else{
+                        console.log("deleted image file!");
+                    }
+                });
             });
             // const op = getCrops(req.file.filename);
             console.log(op);
