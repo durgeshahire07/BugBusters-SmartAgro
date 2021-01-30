@@ -36,7 +36,7 @@ module.exports = {
                 if (op != null) {
                     res.status(200).json({
                         success: true,
-                        list: op,
+                        list: op.slice(0, -2).split(','),
                         data: req.file
                     });
                 } else {
