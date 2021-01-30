@@ -5,7 +5,8 @@ import { Drawer } from 'react-native-paper';
 import { color } from 'react-native-reanimated';
 import { Icon, Container, Body, H3, Header, Content, Thumbnail, ListItem, Left, Right, List, Footer, FooterTab } from 'native-base'
 import { Switch } from 'react-native-gesture-handler';
-import { UserContext } from '../src/Login'
+// import { UserContext } from '../src/Login'
+
 
 function Sidebar({ ...props }) {
     return (
@@ -23,16 +24,7 @@ function Sidebar({ ...props }) {
                         <Body>
                         <H3 style={{ color: "#fff" }}>Hey, firstName</H3>
                                             <Text style={{ color: '#fff' }}>email@gamil.com</Text>
-                            {/* <UserContext.Consumer>
-                                {
-                                    user => {
-                                        return (<View>
-                                            <H3 style={{ color: "#fff" }}>{user.firstName}</H3>
-                                            <Text style={{ color: '#fff' }}>email@gamil.com</Text>
-                                        </View>)
-                                    }
-                                }
-                            </UserContext.Consumer> */}
+                            
                         </Body>
                     </ListItem>
                 </View>
@@ -42,25 +34,21 @@ function Sidebar({ ...props }) {
                 <DrawerContentScrollView {...props}>
 
                     <DrawerItemList {...props} />
+                   
                     <DrawerItem
                         label="Settings"
                         icon={({ color, size }) => <Icon name="settings"
                             style={{ fontSize: size, color: color }} />}
                         onPress={() => props.navigation.navigate('Home')}
                     />
-                    <DrawerItem
-                        label="Rate Us"
-                        icon={({ color, size }) => <Icon name="star"
-                            style={{ fontSize: size, color: color }} />}
-                        onPress={() => props.navigation.navigate('Home')}
-                    />
+                   
                     <DrawerItem
                         label="Log Out"
                         icon={({ color, size }) => <Icon name="log-out"
                             style={{ fontSize: size, color: color }} />}
                         onPress={() => props.navigation.push('Login')}
                     />
-
+                   
                 </DrawerContentScrollView>
 
             </Content>

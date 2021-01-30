@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{createContext} from 'react';
 import {
     View,
     Text,
@@ -12,7 +12,7 @@ import {
     StatusBar,
     SafeAreaView
 } from 'react-native';
-// import customDrawer from '../src/customDrawer'
+
 import * as Animatable from 'react-native-animatable';
 import { LinearGradient } from 'expo-linear-gradient'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -20,6 +20,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import axios from 'axios'
 
+// const FirstName = createContext();
 // const UserContext = React.createContext()
 
 const Login = ({ navigation }) => {
@@ -52,6 +53,8 @@ const Login = ({ navigation }) => {
             secureTextEntry: !secureEntry.secureTextEntry
         });
     }
+
+    
     async function submitHandler() {
         if(data.userEmailId && data.password){
         try {
@@ -61,16 +64,18 @@ const Login = ({ navigation }) => {
                 headers: {},
                 data: data
             };
-            const response = await axios(config)
+            // const getUserdata = () => {
+            //     <FirstName.Provider value={"binod"}>
+            //        <Home />
+            //     </FirstName.Provider>
+            // }
+            const response = await axios(config)  
+            
             if (response.data.success) {
-                // <UserContext.Provider value={response.data.data}>
-                //     <customDrawer />
-                // </UserContext.Provider>
                 
-                // console.log(response.data.data.firstName)
-                navigation.navigate('Home',{
-                    userData: response.data.data,
-                })
+                // getUserdata()
+                
+                navigation.navigate('Home',{userData: response.data.data})
             }
             else {
                 alert("Incorrect username or password")
@@ -189,6 +194,7 @@ const Login = ({ navigation }) => {
 };
 
 export default Login;
+
 
 const styles = StyleSheet.create({
     container: {

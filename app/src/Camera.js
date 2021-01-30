@@ -1,19 +1,25 @@
-
 import React, { useState, useEffect , useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Modal , Image, SafeAreaView} from 'react-native';
 import { Camera } from 'expo-camera';
 import {FontAwesome} from '@expo/vector-icons';
 import * as Permissions from 'expo-permissions';
 import * as MediaLibrary from 'expo-media-library';
+import axios from 'axios'
 
 
-export default function App() {
+var FormData = require('form-data');
+
+const camera = ({navigation}) => {
   const camRef =useRef(null); 
   const [type, setType] = useState(Camera.Constants.Type.back);
   const [hasPermission, setHaspermission] = useState(null);
   const [capturePhoto, setCapturePhoto]= useState(null);
   const [open, setOpen]= useState(false);
+  const [pic,setPic] = useState({
+    link: ''
+  })
 
+  
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestPermissionsAsync();
@@ -37,23 +43,68 @@ export default function App() {
        const data = await camRef.current.takePictureAsync();
        setCapturePhoto(data.uri);
        setOpen(true);
-       console.log(data);
+       setPic({
+         ...pic,
+         link: data.uri
+       })
+      //  console.log(pic.link);
      }
 
    }
 
+// updatePhoto = () => {
+//   setData({
+//     ...data,
+//     data: ''
+//   })
+// }
 
-   async function savePicture(){
-     const asset = await MediaLibrary.createAssetAsync(capturePhoto)
-     .then(()=>{
-       alert('Photo saved successfully !');
+  //  async function savePicture(){
+  //    return(
+  //     let req = new FormData();
+  //     req.append('landImag', `${pic.link}`)
+  //     console.log(req)
+  //     try {
+        
+  //       var config = {
+  //           method: 'post',
+  //           url: 'http://192.168.43.19:3100/api/v1/auth/getCrops',
+  //           headers: {},
+  //           data : req
+  //       };
+  //       const response = await axios(config)
+  //       console.log(response)
+  //       if (response.data.success) {
+  //         console.log("success")
+  //           // navigation.navigate('Home',{userData: response.config.data})
+  //       }
+  //       else {
+  //           alert("something went wrong!")
+  //       }
+  //   } catch (error) {
+  //       console.log(error)
+  //       alert(error)
+        
+  //   }
+  //    )
+ 
+  //  }
 
-     })
-     .catch(error=>{
-       console.log('err',error);
-     })
+  const savePic = () => {
+    var photo = {
+      landImage: pic.link
+    };
+    var body = new FormData();
+    
+    body.append(photo)
+    console.log(body)
+    console.log(body._parts[0][0]);
 
-   }
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST','http://192.168.43.19:3100/api/v1/auth/getCrops')
+    xhr.send(body._parts[0][0])
+    navigation.navigate('Home')
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -97,7 +148,8 @@ export default function App() {
               <FontAwesome name="window-close" size={50} color="#FF0000"/>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{margin : 10}} onPress={ savePicture} >
+            <TouchableOpacity style={{margin : 10}} onPress={savePic} >
+            {/* <TouchableOpacity style={{margin : 10}}  > */}
               <FontAwesome name="upload" size={50} color="#121212"/>
             </TouchableOpacity>
 
@@ -114,6 +166,8 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
+export default camera
 
 const styles = StyleSheet.create({
   container : {

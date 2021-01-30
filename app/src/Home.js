@@ -17,11 +17,44 @@ import Feather from 'react-native-vector-icons/Feather';
 import axios from 'axios'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import Sidebar from '../src/customDrawer'
-
-
+// import { FirstName } from './Login';
+import Camera from './Camera'
 const Drawer = createDrawerNavigator();
 
-const HomeContent = ({ navigation }) => {
+
+const HomeContent = ({navigation}) => {
+
+    
+
+    // getInfo = () => {
+    //     var config = {
+    //         method: 'get',
+    //         url: 'http://192.168.43.19:3000/api/v1/auth/getDailySurvey',
+    //         headers: {}
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             console.log(JSON.stringify(response.data));
+
+    //             if (response.data.success) {
+    //                 setState({
+    //                     isLoading: false,
+    //                     data: response.data.data
+    //                 })
+    //             }
+    //             else {
+    //                 alert("Oops..something went wrong")
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //             alert(error)
+    //         });
+    // }
+    // useEffect(() => {
+    //     getInfo()
+    // }, [])
+
     return (
 
         <View style={styles.container}>
@@ -29,7 +62,7 @@ const HomeContent = ({ navigation }) => {
                 <StatusBar backgroundColor='#004d80' barStyle="light-content" />
                 <View style={styles.header}>
                     <View style={{ paddingTop: 13 }}>
-                        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+                    <TouchableOpacity onPress={() => navigation.openDrawer()}>
                             <Feather
                                 name="menu"
                                 size={24}
@@ -44,39 +77,30 @@ const HomeContent = ({ navigation }) => {
                         color: '#fff',
                         paddingLeft: 15,
                         paddingTop: 10
-                    }}>Smart</Text>
-                    <Text style={{fontFamily: 'nunito-bold',
-                        fontSize: 20,
-                        color: '#fff',
-                        paddingLeft:2,
-                        paddingTop: 10}}>Agro</Text>
+                    }}>SmartAgro</Text>
+
                 </View>
                 <View
                     style={styles.footer}
                 >
-                   
+                        {/* <FirstName.Consumer>
+                                { 
+                                    user => { console.log(user)
+                                        return (<View>
+                                            <Text style={{ color: '#000000' }}>hey{user}</Text>
+                                        </View>)
+                                    }
+                                }
+                            </FirstName.Consumer> */}
                         <View style={styles.box}>
-                        <TouchableOpacity >
+                        <TouchableOpacity  >
                             <Text style={{
                                 color: '#007acc',
                                 textAlign: 'center',
                                 fontFamily: 'nunito-semi',
                                 fontSize: 20,
                                 paddingVertical: 25
-                            }}>View 1</Text>
-                             </TouchableOpacity>
-                        </View>
-                        <View style={{ paddingTop: 20 }} />
-                   
-                        <View style={styles.box}>
-                        <TouchableOpacity >
-                            <Text style={{
-                                color: '#007acc',
-                                textAlign: 'center',
-                                fontFamily: 'nunito-semi',
-                                fontSize: 20,
-                                paddingVertical: 25
-                            }}>View 2</Text>
+                            }}>Crop List</Text>
                              </TouchableOpacity>
                         </View>
                     <View style={{ paddingTop: 20 }} />
@@ -89,22 +113,11 @@ const HomeContent = ({ navigation }) => {
                                 fontFamily: 'nunito-semi',
                                 fontSize: 20,
                                 paddingVertical: 25
-                            }}>View 3</Text>
+                            }}>Weather Alert</Text>
                              </TouchableOpacity>
                         </View>
                     <View style={{ paddingTop: 20 }} />
 
-                    <View style={styles.box}>
-                        <TouchableOpacity >
-                            <Text style={{
-                                color: '#007acc',
-                                textAlign: 'center',
-                                fontFamily: 'nunito-semi',
-                                fontSize: 20,
-                                paddingVertical: 25
-                            }}>View 4</Text>
-                             </TouchableOpacity>
-                        </View>
                 </View>
                 <View style={{ backgroundColor: '#fff', }}>
                     <View style={{
@@ -127,7 +140,7 @@ const HomeContent = ({ navigation }) => {
                                 paddingTop: 15,
                                 paddingLeft: 15
                             }}>
-                                <TouchableOpacity>
+                                <TouchableOpacity onPress={()=>navigation.navigate('Camera')} >
                                     <Feather
                                         name="plus"
                                         color="#fff"
@@ -170,17 +183,24 @@ const Screen1Content = ({ navigation }) => {
                     color: '#fff',
                     paddingLeft: 15,
                     paddingTop: 10
-                }}>Screen1</Text>
+                }}>User Profile</Text>
             </View>
-            <Text>SCREEN1</Text>
+            <Text>Profile</Text>
         </View>
     )
 }
 
 
-const Home = ({ route }) => {
-    const { userData } = route.params;
-    console.log(userData)
+    const rateUs = () =>{
+        return(
+        <View style={{flex:1,justifyContent:'center',alignItems:'center',paddingHorizontal:40}}>
+            <Text>This feature will be available when the owner publishes this application to playstore</Text>
+        </View> )
+    }
+
+
+const Home = () => {
+    
     return (
         <Drawer.Navigator initialRouteName={'Home'} drawerContent={props => <Sidebar {...props} />}>
             <Drawer.Screen name="Home" component={HomeContent}
@@ -190,8 +210,20 @@ const Home = ({ route }) => {
                     )
                 }}
             />
-            <Drawer.Screen name="Screen1" component={Screen1Content} />
+            <Drawer.Screen name="Profile" component={Screen1Content}
+            options={{
+                drawerIcon: ({ color, size }) => (
+                    <Icon name="person" style={{ fontSize: size, color: color }} />
+                )
+            }} />
+            <Drawer.Screen name="Rate Us" component={rateUs}
+            options={{
+                drawerIcon: ({ color, size }) => (
+                    <Icon name="star" style={{ fontSize: size, color: color }} />
+                )
+            }} />
         </Drawer.Navigator>
+        
     )
 }
 
