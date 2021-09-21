@@ -2,28 +2,28 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const cors = require('cors');
+require('dotenv').config();
+require('./api/utils/initDB');
 
+// const vars
 const auth = require('./api/routes/auth');
+const port = process.env.PORT || 5000;
 
-// connecting to database
-mongoose.connect('mongodb+srv://jghadge:root123@cluster0.wg9gk.mongodb.net/samrtagro', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
-mongoose.connection.on("connected", () => {
-    console.log("Database connected")
-})
-
-app.use(cors());
+// using middlewares
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({
-    extended: false
+app.use(express.urlencoded({
+    extended: true
 }));
-app.use(bodyParser.json());
+app.use(express.json());
 
+// routings
 app.use('/api/v1/auth/', auth)
 
-module.exports = app;
+// initializing server and listening to requests
+app.listen(process.env.PORT, (error) => {
+    if (error) {
+        console.log('unable to start server!');
+    } else {
+        console.log(`Server started at port ${port}\nBrowse at http://localhost:${port}/api/v1/`);
+    }
+});
